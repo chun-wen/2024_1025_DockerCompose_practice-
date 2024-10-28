@@ -1,6 +1,10 @@
 name: 2024-10-25-docker-compose-practice
 
 services:
+  docker-practice:
+    image: 390403861246.dkr.ecr.ap-northeast-1.amazonaws.com/dockerfile-practice:latest
+    ports:
+      - 3000:3000
   mongodb:
     image: mongo
     ports:
