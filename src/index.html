@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dockerfile</title>
+</head>
+<script>
+    async function updateName() {
+      const inputValue = document.getElementById("name").value;
+      console.log("🚀 ~ updateName ~ inputValue:", inputValue)
+      const serverResponse = await fetch("http://localhost:3000/update-profile", {
+        method: "POST",
+        headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name: inputValue })
+      });
+      console.log("🚀 ~ updateName ~ serverResponse:", serverResponse)
+      // window.location.reload();
+    }
+
+     (async function init() {
+        const response = await fetch('http://localhost:3000/get-profile',{
+          method: "GET",
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+        });
+        console.log("response", response);
+        const user = await response.json();
+        console.log(user.name);
+        document.getElementById("name").value = user.name;
+    })();
+
+  </script>
+<body>
+  
+  <h1>Dockerfile</h1>
+  <input type="text" id="name" required 
+  value="dockerfile"/>
+  <button id="button" onclick="updateName()">Save Name</button>
+</body>
+</html>
