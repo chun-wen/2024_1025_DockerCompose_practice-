@@ -1,10 +1,16 @@
-FROM node:18-alpine
+FROM node:18-alpine AS builder
 
-WORKDIR /src
+WORKDIR /app
 
-COPY src/ /src
+COPY src/ /app
 
-RUN npm install
+RUN npm ci --only=production
+
+FROM builder AS runner
+
+WORKDIR /app 
+
+COPY --from=builder /app ./
 
 EXPOSE 3000
 
