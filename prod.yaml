@@ -1,0 +1,23 @@
+name: 2024-11-01-docker-compose-practice
+
+services:
+  frontend-prod:
+    image: 390403861246.dkr.ecr.ap-northeast-1.amazonaws.com/dockerfile-practice:latest
+    ports:
+      - 3000:3000
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - NODE_ENV=production
+    volumes:
+      - .:/app
+    command: bash -c "yarn install && yarn start"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    deploy:
+      replicas: 1
+
+volumes:
+  momgo_test:
+    driver: local
